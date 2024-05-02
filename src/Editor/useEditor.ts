@@ -1,28 +1,35 @@
-import { useEffect, useRef, useState } from 'react'
-import { RevaEditor } from './editor'
+import { useEffect, useRef, useState } from 'react';
+import { RevaEditor } from '.';
 
 interface Props {
-  defaultValue?: string
+  defaultValue?: string;
 }
 
-export const useEditor = ({ defaultValue }: Props) => {
-  const [editor, setEditor] = useState<RevaEditor | null>(null)
-  const editorContainer = useRef<HTMLDivElement>(null)
+interface UseEditorResult {
+  editor: RevaEditor | null;
+  editorContainer: React.RefObject<HTMLDivElement>;
+}
+
+export const useEditor = ({ defaultValue }: Props): UseEditorResult => {
+  const [editor, setEditor] = useState<RevaEditor | null>(null);
+  const editorContainer = useRef<HTMLDivElement>(null);
+  console.log(defaultValue);
 
   useEffect(() => {
-    if (editorContainer && editorContainer.current) {
-      const newEditor = new RevaEditor(editorContainer.current)
-      newEditor.startWebSocket('ws://localhost:3000')
-      setEditor(newEditor)
+    if (editorContainer?.current) {
+      const newEditor = new RevaEditor(editorContainer.current);
+      // TODO: Read from the environment
+      newEditor.startWebSocket('ws://localhost:5008');
+      setEditor(newEditor);
     }
 
     return () => {
-      editor?.dispose()
-    }
-  }, [editorContainer, defaultValue])
+      editor?.dispose();
+    };
+  }, []);
 
   return {
     editor,
     editorContainer,
-  }
-}
+  };
+};

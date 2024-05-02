@@ -1,1 +1,2 @@
-export { Editor } from './Editor'
+export { RevaEditor } from './RevaEditor';
+export { Editor } from './Editor';
