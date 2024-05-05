@@ -1,27 +1,26 @@
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
-import { MonacoLanguageClient } from 'monaco-languageclient'
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { MonacoLanguageClient } from 'monaco-languageclient';
 import {
   registerRevaLanguage,
   REVA_LANGUAGE_EXTENSION,
   REVA_LANGUAGE_ID,
-} from './definitions'
+} from './definitions';
 import {
   WebSocketMessageReader,
   WebSocketMessageWriter,
   toSocket,
-} from 'vscode-ws-jsonrpc'
+} from 'vscode-ws-jsonrpc';
 import {
   CloseAction,
   ErrorAction,
-  MessageTransports,
-} from 'vscode-languageclient/lib/common/client'
+} from 'vscode-languageclient/lib/common/client';
 
-registerRevaLanguage()
+registerRevaLanguage();
 
 export class RevaEditor {
-  editor: monaco.editor.IStandaloneCodeEditor
-  model: monaco.editor.ITextModel
-  languageClient: MonacoLanguageClient | null = null
+  editor: monaco.editor.IStandaloneCodeEditor;
+  model: monaco.editor.ITextModel;
+  languageClient: MonacoLanguageClient | null = null;
 
   constructor(element: HTMLElement) {
     // try {
@@ -37,23 +36,23 @@ export class RevaEditor {
       monaco.Uri.parse(
         `file:///rule-${Math.random()}.${REVA_LANGUAGE_EXTENSION}`
       )
-    )
+    );
 
     this.editor = monaco.editor.create(element, {
       model: this.model,
       value: 'const',
       language: REVA_LANGUAGE_ID,
-    })
+    });
   }
 
   startWebSocket(url: string) {
     return new Promise((resolve, reject) => {
-      const webSocket = new WebSocket(url)
+      const webSocket = new WebSocket(url);
 
       webSocket.onopen = () => {
-        const socket = toSocket(webSocket)
-        const reader = new WebSocketMessageReader(socket)
-        const writer = new WebSocketMessageWriter(socket)
+        const socket = toSocket(webSocket);
+        const reader = new WebSocketMessageReader(socket);
+        const writer = new WebSocketMessageWriter(socket);
         const languageClient = new MonacoLanguageClient({
           name: `${REVA_LANGUAGE_ID} Language Client`,
           clientOptions: {
@@ -70,23 +69,23 @@ export class RevaEditor {
                 writer,
               }),
           },
-        })
+        });
 
-        languageClient.start()
-        this.languageClient = languageClient
+        languageClient.start();
+        this.languageClient = languageClient;
 
-        resolve(languageClient)
-      }
+        resolve(languageClient);
+      };
 
       webSocket.onerror = (error) => {
-        reject(error)
-      }
-    })
+        reject(error);
+      };
+    });
   }
 
   async dispose() {
-    this.editor.dispose()
-    this.model?.dispose()
-    await this.languageClient?.dispose()
+    this.editor.dispose();
+    this.model?.dispose();
+    await this.languageClient?.dispose();
   }
 }
