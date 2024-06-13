@@ -1,11 +1,7 @@
-import { Editor } from './Editor';
+import { Layout } from './Layout/Layout';
 
 function App() {
-  return (
-    <div>
-      <Editor />
-    </div>
-  );
+  return <Layout />;
 }
 
 export default App;
