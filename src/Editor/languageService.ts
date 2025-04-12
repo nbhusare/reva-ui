@@ -9,6 +9,7 @@ import {
   ErrorAction,
 } from 'vscode-languageclient/lib/common/client';
 import { monaco } from 'react-monaco-editor';
+import { tokens } from './definitions/tokens';
 
 export const REVA_LANGUAGE_ID = 'reva';
 
@@ -16,6 +17,7 @@ export const registerRevaLanguage = () => {
   monaco.languages.register({
     id: REVA_LANGUAGE_ID,
   });
+  monaco.languages.setMonarchTokensProvider(REVA_LANGUAGE_ID, tokens);
 };
 
 export function startWebSocket(

@@ -20,7 +20,7 @@ const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
   hideCursorInOverviewRuler: true,
   matchBrackets: 'always',
   minimap: {
-    enabled: false,
+    enabled: true,
   },
   readOnly: false,
   scrollbar: {

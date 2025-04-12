@@ -1,7 +1,7 @@
-import { type languages } from 'monaco-editor'
+import { type languages } from 'monaco-editor';
 
 export const tokens: languages.IMonarchLanguage = {
-  keywords: ['const'],
+  keywords: [],
   tokenizer: {
     num: [
       [
@@ -14,4 +14,4 @@ export const tokens: languages.IMonarchLanguage = {
       ],
     ],
   },
-}
+};
