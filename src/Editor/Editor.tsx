@@ -3,12 +3,12 @@ import * as monaco from 'monaco-editor';
 import { MonacoLanguageClient } from 'monaco-languageclient';
 
 import {
-  REVA_LANGUAGE_ID2 as REVA_LANGUAGE_ID,
-  registerRevaLanguage2,
+  REVA_LANGUAGE_ID,
+  registerRevaLanguage,
   startWebSocket,
 } from './languageService';
 
-registerRevaLanguage2();
+registerRevaLanguage();
 
 const MONACO_OPTIONS: monaco.editor.IEditorConstructionOptions = {
   autoIndent: 'full',

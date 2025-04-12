@@ -10,11 +10,11 @@ import {
 } from 'vscode-languageclient/lib/common/client';
 import { monaco } from 'react-monaco-editor';
 
-export const REVA_LANGUAGE_ID2 = 'reva';
+export const REVA_LANGUAGE_ID = 'reva';
 
-export const registerRevaLanguage2 = () => {
+export const registerRevaLanguage = () => {
   monaco.languages.register({
-    id: REVA_LANGUAGE_ID2,
+    id: REVA_LANGUAGE_ID,
   });
 };
 
@@ -30,9 +30,9 @@ export function startWebSocket(
       const reader = new WebSocketMessageReader(socket);
       const writer = new WebSocketMessageWriter(socket);
       const languageClient = new MonacoLanguageClient({
-        name: `${REVA_LANGUAGE_ID2} Language Client`,
+        name: `${REVA_LANGUAGE_ID} Language Client`,
         clientOptions: {
-          documentSelector: [REVA_LANGUAGE_ID2],
+          documentSelector: [REVA_LANGUAGE_ID],
           errorHandler: {
             error: () => ({ action: ErrorAction.Continue }),
             closed: () => ({ action: CloseAction.DoNotRestart }),
